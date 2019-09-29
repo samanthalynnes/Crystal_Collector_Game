@@ -1,7 +1,14 @@
 
+body {
+    background-color: lightblue;
+}
+
 h1 {
     background-color: orange;
     color: white;
+    padding: 20px;
+    width: 100%;
+    margin: 0;
 }
 
 img {
@@ -9,3 +16,10 @@ img {
     height: 150px;
   }
 
+  h3 {
+      background-color: orange;
+      color: white;
+      padding: 20px;
+      width: 100%;
+      margin: 0;
+  }

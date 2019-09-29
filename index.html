@@ -14,7 +14,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col">
                 <h1>Crystals Collector <span id="title"></span></h1>
             </div>
         </div>
@@ -44,24 +44,30 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-3"> <div id="current-score"></div>
-                Value
+            <div class="col-3"> 
+                <h2>Target Score:
+                    <span id="target-score"></span>
+                </h2>
             </div>
-            <div class="col-2"> <div id="wins-losses"></div>
-                Wins:
-                Losses:
+            <div class="col-2"> <span id="wins-losses"></span>
+                <p>Wins: 
+                    <span id="win-count"></span>
+                </p>
+                <p>Losses:
+                    <span id="loss-count"></span>
+                </p>
             </div>
         </div>
     </div>
 
-    <div class="container"> <div id="crystals"></div>
+    <div class="container"> <span id="crystal-images"></span>
         <div class="row">
             <div class="col-12">
                 <div class="buttons">       
-                    <img class="image" id="image1" src="./assets/images/green.jpg">
-                    <img class="image" id="image2" src="./assets/images/orange.jpg">
-                    <img class="image" id="image3" src="./assets/images/purple.jpg">
-                    <img class="image" id="image4" src="./assets/images/yellow.jpg">
+                    <img class="image" id="green" src="./assets/images/green.jpg">
+                    <img class="image" id="orange" src="./assets/images/orange.jpg">
+                    <img class="image" id="purple" src="./assets/images/purple.jpg">
+                    <img class="image" id="yellow" src="./assets/images/yellow.jpg">
                 </div>
             </div>
         </div>
@@ -69,18 +75,10 @@
 
     <div class="container"> 
         <div class="row">
-            <div class="col-3">
-                Your total score is:
-            </div>
-        </div>
-    </div>
-
-    <div class="container"> 
-        <div id="total-score">
-            <div class="row">
-                <div class="col-3">
-                    Value
-                </div>
+            <div class="col">
+                <h3>Your total score is:
+                    <span id="total-score"></span>
+                </h3>
             </div>
         </div>
     </div>
@@ -98,20 +96,86 @@ $(document).ready(function() {
     var userTotal = 0;
     var wins = 0;
     var losses = 0;
-    var targetNumber = [];
+    var targetNumber = Math.floor(Math.random()*101+19);
+    $("#target-score").text(targetNumber);
+    var value1 = Math.floor(Math.random()*11+1);
+    var value2 = Math.floor(Math.random()*11+1);
+    var value3 = Math.floor(Math.random()*11+1);
+    var value4 = Math.floor(Math.random()*11+1);
+
+    $("#win-count").text(wins);
+    $("#loss-count").text(losses);
 
     // create a reset function to restart the game with new numbers
-    function reset () {
-        for (var i = 0; i < crystals.length; i++) {
-            crystals[i].setAttribute("score", Math.floor(Math.random() * 11 + 1))
-        }
-        targetNumber = Math.floor(Math.random() * 101 + 19);
+    function reset() {
+        targetNumber = Math.floor(Math.random()*101+19)
+        $("#target-score").text(targetNumber);
+        value1 = Math.floor(Math.random()*11+1);
+        value2 = Math.floor(Math.random()*11+1);
+        value3 = Math.floor(Math.random()*11+1);
+        value4 = Math.floor(Math.random()*11+1);
         userTotal = 0;
         $("#total-score").text(userTotal);
-        $("#target-score").text(targetNumber);
     }
 
+    //create a winning and losing function to run 
+    function winner() {
+        alert("You won!");
+        wins++;
+        $("#win-count").text(wins);
+        reset()
+    }
+    function loser() {
+        alert("You lost!");
+        losses++;
+        $("#loss-count").text(losses);
+        reset();
+    }
+    // create on-click functions for when the crystals are clicked
+    $("#green").on("click", function() {
+        userTotal = userTotal + value1;
+        $("#total-score").text(userTotal);  
+            if (userTotal === targetNumber) {
+                winner();
+            }     
+            else if (userTotal > targetNumber) {
+                loser();
+            }
+    })
+    
+    $("#orange").on("click", function() {
+        userTotal = userTotal + value2;
+        $("#total-score").text(userTotal); 
+            if (userTotal === targetNumber) {
+                winner();
+            }     
+            else if (userTotal > targetNumber) {
+                loser();
+            }    
+    })
 
+    $("#purple").on("click", function() {
+        userTotal = userTotal + value3;
+        $("#total-score").text(userTotal); 
+            if (userTotal === targetNumber) {
+                winner();
+            }     
+            else if (userTotal > targetNumber) {
+                loser();
+            }      
+    })
+
+    $("#yellow").on("click", function() {
+        userTotal = userTotal + value4;
+        $("#total-score").text(userTotal);  
+        if (userTotal === targetNumber) {
+                winner();
+            }     
+            else if (userTotal > targetNumber) {
+                loser();
+            }     
+    });
+    
 });
   </script>
   
